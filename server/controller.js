@@ -13,10 +13,10 @@ const sequelize = new Sequelize(CONNECTION_STRING, {
   },
 });
 
+
 module.exports = {
   seed: (req, res) => {
-    sequelize
-      .query(
+    sequelize.query(
         `
             drop table if exists cities;
             drop table if exists countries;
@@ -231,15 +231,13 @@ module.exports = {
             ('Zambia'),
             ('Zimbabwe');
         `
-      )
-      .then(() => {
+      ).then(() => {
         console.log("DB seeded!");
         res.sendStatus(200);
-      })
-      .catch((err) => console.log("error seeding DB", err));
+      }).catch((err) => console.log("error seeding DB", err));
   },
 };
-getCountries: (req, res) => {
+    getCountries: (req, res) => {
         sequelize.query(`SELECT * FROM countries;`).then(dbRes =>{
             res.status(200).send(dbRes[0])
         }).catch(err=>console.log(err))
